@@ -18,12 +18,13 @@ jobs:
           git fetch
           git checkout $GITHUB_SHA
 
-      - name: Fetch secrets and create index.html
+      - name: Debug and create index.html
         env:
           INDEX_URL: ${{ vars.INDEX_URL }}
         run: |
-          echo "Creating index.html with the secret URL..."
-          echo "<!DOCTYPE html><html><head><title>Secure Page</title></head><body><h1>Welcome to Our Secure Page</h1><p>Secret URL: $INDEX_URL</p></body></html>" > index.html
+          echo "Checking if INDEX_URL variable is set..."
+          echo "Creating index.html..."
+          echo "<!DOCTYPE html><html><head><title>Secure Page</title></head><body><h1>Welcome to Our Secure Page</h1><p>Secret URL: ${INDEX_URL}</p></body></html>" > index.html
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
