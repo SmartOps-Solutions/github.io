@@ -1,7 +1,7 @@
 title: "SmartOps Solutions Site"
 description: "A secure page powered by Jekyll"
 baseurl: "" # the subpath of your site, leave empty for root
-url: "https://SmartOps-Solutions.github.io/github.io" # the base hostname & protocol for your site
+url: "https://SmartOps-Solutions.github.io" # the base hostname & protocol for your site
 markdown: kramdown
 theme: minima # Default theme, you can change this to any supported theme
 
