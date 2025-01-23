@@ -20,12 +20,10 @@ jobs:
 
       - name: Fetch secrets and create index.html
         env:
-          INDEX_URL: ${{ secrets.INDEX_URL }}
+          INDEX_URL: ${{ vars.INDEX_URL }}
         run: |
-          echo "Secret URL: $INDEX_URL"
+          echo "Creating index.html with the secret URL..."
           echo "<!DOCTYPE html><html><head><title>Secure Page</title></head><body><h1>Welcome to Our Secure Page</h1><p>Secret URL: $INDEX_URL</p></body></html>" > index.html
-          echo "Content of index.html:"
-          cat index.html
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
