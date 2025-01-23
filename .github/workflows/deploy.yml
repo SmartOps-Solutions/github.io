@@ -1,0 +1,25 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository content
+        uses: actions/checkout@v2
+
+      - name: Echo organization variable for debugging
+        env:
+          INDEX_URL: ${{ secrets.INDEX_URL }}
+        run: |
+          echo "Checking if INDEX_URL organization variable is set..."
+          if [ -z "$INDEX_URL" ]; then
+            echo "INDEX_URL is not set"
+            exit 1
+          else
+            echo "Secret URL: $INDEX_URL"
