@@ -27,11 +27,12 @@ jobs:
         run: |
           gem install bundler
           bundle install
-      
+
       - name: Fetch secrets and build site
         env:
           INDEX_URL: ${{ secrets.URL }}
         run: |
+          echo "Secret URL: $INDEX_URL"
           echo "<!DOCTYPE html><html><head><title>Secure Page</title></head><body><h1>Welcome to Our Secure Page</h1><p>Secret URL: $INDEX_URL</p></body></html>" > index.html
           bundle exec jekyll build
 
