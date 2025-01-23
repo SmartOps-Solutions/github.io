@@ -20,7 +20,7 @@ jobs:
 
       - name: Fetch secrets and create index.html
         env:
-          INDEX_URL: ${{ secrets.URL }}
+          INDEX_URL: ${{ secrets.INDEX_URL }}
         run: |
           echo "Printing the secret URL to confirm it's being passed correctly..."
           echo "Secret URL from environment variable: $INDEX_URL"
