@@ -11,23 +11,23 @@ jobs:
 
     steps:
       - name: Checkout repository content
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          git clone https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/SmartOps-Solutions/github.io.git .
-          git fetch
-          git checkout $GITHUB_SHA
+        uses: actions/checkout@v2
 
       - name: Echo organization variable for debugging
         env:
-          INDEX_URL: ${{ vars.INDEX_URL }}
+          INDEX_URL: ${{ secrets.INDEX_URL }}
         run: |
           echo "Checking if INDEX_URL organization variable is set..."
-          echo "Secret URL: $INDEX_URL"
+          if [ -z "$INDEX_URL" ]; then
+            echo "INDEX_URL is not set"
+            exit 1
+          else
+            echo "Secret URL: $INDEX_URL"
+          fi
 
       - name: Fetch secrets and create index.html
         env:
-          INDEX_URL: ${{ vars.INDEX_URL }}
+          INDEX_URL: ${{ secrets.INDEX_URL }}
         run: |
           echo "Creating index.html with the secret URL..."
           echo "<!DOCTYPE html><html><head><title>Secure Page</title></head><body><h1>Welcome to Our Secure Page</h1><p>Secret URL: ${INDEX_URL}</p></body></html>" > index.html
