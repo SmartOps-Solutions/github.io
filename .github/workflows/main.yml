@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository content
-        uses: actions/checkout@v2
-
+        run: |
+          git clone https://github.com/SmartOps-Solutions/github.io.git .
+          git fetch
+          git checkout $GITHUB_SHA
       - name: Fetch secrets
         env:
           INDEX_URL: ${{ secrets.URL }}
