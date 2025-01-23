@@ -18,11 +18,11 @@ jobs:
           git fetch
           git checkout $GITHUB_SHA
 
-      - name: Echo variable for debugging
+      - name: Echo organization variable for debugging
         env:
           INDEX_URL: ${{ vars.INDEX_URL }}
         run: |
-          echo "Checking if INDEX_URL variable is set..."
+          echo "Checking if INDEX_URL organization variable is set..."
           echo "Secret URL: $INDEX_URL"
 
       - name: Fetch secrets and create index.html
