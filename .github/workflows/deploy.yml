@@ -1,4 +1,4 @@
-name: Deploy Jekyll Site to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -6,28 +6,33 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository content
-      uses: actions/checkout@v2
+      - name: Checkout repository content
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          git clone https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/SmartOps-Solutions/github.io.git .
+          git fetch
+          git checkout $GITHUB_SHA
 
-    - name: Setup Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.0
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
 
-    - name: Install Jekyll and Bundler
-      run: |
-        gem install bundler
-        bundle install
+      - name: Install Jekyll and Bundler
+        run: |
+          gem install bundler
+          bundle install
 
-    - name: Build the site
-      run: bundle exec jekyll build
+      - name: Build the site
+        run: bundle exec jekyll build
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.TOKEN }}
-        publish_dir: ./_site
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_dir: ./_site
