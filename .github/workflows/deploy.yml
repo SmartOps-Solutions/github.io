@@ -18,6 +18,13 @@ jobs:
           git fetch
           git checkout $GITHUB_SHA
 
+      - name: Fetch secrets and create index.html
+        env:
+          INDEX_URL: ${{ secrets.URL }}
+        run: |
+          echo "Secret URL: $INDEX_URL"
+          echo "<!DOCTYPE html><html><head><title>Secure Page</title></head><body><h1>Welcome to Our Secure Page</h1><p>Secret URL: $INDEX_URL</p></body></html>" > index.html
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -28,13 +35,11 @@ jobs:
           gem install bundler
           bundle install
 
-      - name: Fetch secrets and create index.html
-        env:
-          INDEX_URL: ${{ secrets.URL }}
+      - name: Build the site
         run: |
-          echo "Secret URL: $INDEX_URL"
-          echo "<!DOCTYPE html><html><head><title>Secure Page</title></head><body><h1>Welcome to Our Secure Page</h1><p>Secret URL: $INDEX_URL</p></body></html>" > index.html
+          echo "Running Jekyll build..."
           bundle exec jekyll build
+          echo "Jekyll build completed."
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
