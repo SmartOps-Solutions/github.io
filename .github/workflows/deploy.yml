@@ -22,8 +22,9 @@ jobs:
         env:
           INDEX_URL: ${{ secrets.URL }}
         run: |
-          echo "Secret URL: $INDEX_URL"
+          echo "Secret URL: $INDEX_URL" # Verify that the secret URL is fetched correctly
           echo "<!DOCTYPE html><html><head><title>Secure Page</title></head><body><h1>Welcome to Our Secure Page</h1><p>Secret URL: $INDEX_URL</p></body></html>" > index.html
+          cat index.html # Output the contents of index.html to verify it was created correctly
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
