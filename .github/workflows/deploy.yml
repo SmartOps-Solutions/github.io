@@ -22,9 +22,7 @@ jobs:
         env:
           INDEX_URL: ${{ secrets.INDEX_URL }}
         run: |
-          echo "Printing the secret URL to confirm it's being passed correctly..."
-          echo "Secret URL from environment variable: $INDEX_URL"
-          echo "Creating index.html with the secret URL..."
+          echo "Secret URL: $INDEX_URL"
           echo "<!DOCTYPE html><html><head><title>Secure Page</title></head><body><h1>Welcome to Our Secure Page</h1><p>Secret URL: $INDEX_URL</p></body></html>" > index.html
           echo "Content of index.html:"
           cat index.html
